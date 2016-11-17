@@ -6,20 +6,25 @@ A choose-your-own adventure/mad-libs game for CS 3800.
 2. `curl -sS https://getcomposer.org/installer | sudo php -- --install-dir=/usr/local/bin --filename=composer`
 3. `composer global require "laravel/installer"`
 > IF: *Errors regarding cache and/or composer.json*
-	TRY:
-		`sudo chown -R $USER $HOME/.composer`
+TRY:
+`sudo chown -R $USER $HOME/.composer`
 5. `laravel new adventure`
-	'adventure' is both folder and application name
+'adventure' is both folder and application name
 > IF: *RuntimeException The Zip PHP extension is not installed. Please install it and try again.*
-	TRY: 
-	`sudo apt-get install php7.0-zip `
+TRY:
+`sudo apt-get install php7.0-zip `
 7. `php artisan serve`
-8. Should see the Laravel splash page at: http://localhost:8000/
-9. Find `/config/app.php` file and go to line **41**. Change `'debug' => env('APP_DEBUG', false),` to `'debug' => env('APP_DEBUG', true),`
-10. Find `.env` and change DB-related variables to match your development setup.
+Should see the Laravel splash page at: http://localhost:8000/
+8. Find `/config/app.php` file and go to line **41**. Change `'debug' => env('APP_DEBUG', false),` to `'debug' => env('APP_DEBUG', true),`
+9. Find `.env` and change DB-related variables to match your development setup.
 
 #Step 2: Create Database Schema
-1. ...
+1.  Create table migrations
+`php artisan make:migration create_adventure_table --create=adventure`
+`php artisan make:migration create_question_table --create=question`
+`php artisan make:migration create_choice_table --create=choice`
+2. Refresh migrations for changes
+`php artisan migrate:refresh`
 
 #Other Resources
 * ...
