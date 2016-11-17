@@ -25,7 +25,100 @@ Should see the Laravel splash page at: http://localhost:8000/
 `php artisan make:migration create_choice_table --create=choice`
 2. Refresh migrations for changes
 `php artisan migrate:refresh`
+3. Edit migration files to reflect desired table structure. See [Schema](#schema).
+4. Edit migration files to relfect desired insert data. See [Seeds](#seeds).
 
+# Schema
+## Adventure
+```
+Schema::create('adventure', function (Blueprint $table) {
+$table->increments('id');
+$table->string('description');
+});
+```
+
+## Question
+```
+Schema::create('question', function (Blueprint $table) {
+$table->increments('id');
+$table->integer('adventure_id')->unsigned();
+$table->string('description');
+$table->foreign('adventure_id')->references('id')->on('adventure');
+```
+## Choice
+```
+Schema::create('choice', function (Blueprint $table) {
+$table->increments('id');
+$table->integer('question_id')->unsigned();
+$table->char('code', 1);
+$table->string('description');
+$table->foreign('question_id')->references('id')->on('question');
+```
+
+# Seeds
+## Adventure
+```
+DB::table('adventure')->insert([
+['id' => 1,
+'description' => 'gone awry'],
+]);
+```
+## Question
+```
+DB::table('question')->insert([
+['id' => 1,
+'adventure_id' => 1,
+'description' => 'Which of the following is your preferred outdoor activity?'],
+['id' => 2,
+'adventure_id' => 1,
+'description' => 'Which of the following items do you have in your car?'],
+['id' => 3,
+'adventure_id' => 1,
+'description' => 'How do you react when you forget something?'],
+]);
+```
+## Choice
+```
+DB::table('choice')->insert([
+['id' => 1,
+'question_id' => 1,
+'code' => 'A',
+'description' => 'hiking'],
+['id' => 2,
+'question_id' => 1,
+'code' => 'B',
+'description' => 'swimming'],
+['id' => 3,
+'question_id' => 1,
+'code' => 'C',
+'description' => 'sleeping'],
+['id' => 4,
+'question_id' => 2,
+'code' => 'A',
+'description' => 'sunglasses'],
+['id' => 5,
+'question_id' => 2,
+'code' => 'B',
+'description' => 'tissues'],
+['id' => 6,
+'question_id' => 2,
+'code' => 'C',
+'description' => 'sunscreen'],
+['id' => 7,
+'question_id' => 3,
+'code' => 'A',
+'description' => 'panic and freak out'],
+['id' => 8,
+'question_id' => 3,
+'code' => 'B',
+'description' => 'look where you last had it'],
+['id' => 9,
+'question_id' => 3,
+'code' => 'C',
+'description' => 'go on with life'],
+]);
+
+```
 #Other Resources
 * ...
 

@@ -25,9 +25,15 @@ class CreateQuestionTable extends Migration
         });
 
         DB::table('question')->insert([
-            ['id' => 1, 'adventure_id' => 1, 'description' => 'Which of the following is your preferred outdoor activity?'],
-            ['id' => 2, 'adventure_id' => 1, 'description' => 'Which of the following items do you have in your car?'],
-            ['id' => 3, 'adventure_id' => 1, 'description' => 'How do you react when you forget something?'],
+            ['id' => 1,
+            'adventure_id' => 1,
+            'description' => 'Which of the following is your preferred outdoor activity?'],
+            ['id' => 2,
+            'adventure_id' => 1,
+            'description' => 'Which of the following items do you have in your car?'],
+            ['id' => 3,
+            'adventure_id' => 1,
+            'description' => 'How do you react when you forget something?'],
             ]);
     }
 
