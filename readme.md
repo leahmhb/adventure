@@ -23,10 +23,16 @@ Should see the Laravel splash page at: http://localhost:8000/
 `php artisan make:migration create_adventure_table --create=adventure`
 `php artisan make:migration create_question_table --create=question`
 `php artisan make:migration create_choice_table --create=choice`
+`php artisan make:migration create_story_table --create=story`
 2. Refresh migrations for changes
 `php artisan migrate:refresh`
 3. Edit migration files to reflect desired table structure. See [Schema](#schema).
 4. Edit migration files to relfect desired insert data. See [Seeds](#seeds).
+
+#Step 3: Create Models
+1. Laravel lets the developer choose where to save Model files. By default, they are placed in the App directory. My preference is to create an Apps/Models folder.
+2. If you do this, remember to correctly namespace the files `namespace App\Models;` in both Models and Controllers.
+3. See [Models][#models]
 
 # Schema
 ## Adventure
@@ -54,7 +60,19 @@ $table->char('code', 1);
 $table->string('description');
 $table->foreign('question_id')->references('id')->on('question');
 ```
+## Story
+```
+Schema::create('story', function (Blueprint $table) {
+$table->increments('id');
+$table->integer('adventure_id')->unsigned();
+$table->integer('question_id')->unsigned();
+$table->integer('choice_id')->unsigned();
 
+$table->foreign('adventure_id')->references('id')->on('adventure');
+$table->foreign('question_id')->references('id')->on('question');
+$table->foreign('choice_id')->references('id')->on('choice');
+});
+```
 # Seeds
 ## Adventure
 ```
@@ -111,13 +129,85 @@ DB::table('choice')->insert([
 ['id' => 8,
 'question_id' => 3,
 'code' => 'B',
-'description' => 'look where you last had it'],
+'description' => 'look around where you last had the item'],
 ['id' => 9,
 'question_id' => 3,
 'code' => 'C',
 'description' => 'go on with life'],
 ]);
 
+```
+#Models
+##Adventure
+```
+class Adventure extends Model{
+   protected $table = 'adventure';
+   public $timestamps = false;
+   protected $fillable = [
+   'description'
+   ];
+
+     public function questions(){
+        return $this->hasMany('Models\Question');
+    }
+}
+```
+
+##Question
+```
+class Question extends Model{
+    protected $table = 'question';
+    public $timestamps = false;
+    protected $fillable = [
+    'adventure_id', 'description'
+    ];
+
+    public function adventure(){
+        return $this->belongsTo('App\Adventure');
+    }
+
+    public function choices(){
+        return $this->hasMany('Models\Choice');
+    }
+}
+```
+##Choice
+```
+class Choice extends Model{
+   protected $table = 'choice';
+   public $timestamps = false;
+   protected $fillable = [
+   'question_id', 'code', 'description'
+   ];
+
+   public function question(){
+        return $this->belongsTo('App\Question');
+    }
+}
+```
+##Story
+```
+class Story extends Model{
+    protected $table = 'story';
+    public $timestamps = false;
+    protected $fillable = [
+    'adventure_id',
+    'question_id',
+    'choice_id',
+    ];
+
+    public function choices(){
+        return $this->hasMany('Models\Choice');
+    }
+
+    public function questions(){
+        return $this->hasMany('Models\Question');
+    }
+
+    public function adventures(){
+        return $this->hasMany('Models\Adventure');
+    }
+}
 ```
 #Other Resources
 * ...

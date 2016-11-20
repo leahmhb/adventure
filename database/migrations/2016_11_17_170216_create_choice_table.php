@@ -11,15 +11,12 @@ class CreateChoiceTable extends Migration
      *
      * @return void
      */
-    public function up()
-    {
-
+    public function up(){
         Schema::create('choice', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('question_id')->unsigned();
             $table->char('code', 1);
             $table->string('description');
-
 
             $table->foreign('question_id')->references('id')->on('question');
         });
@@ -57,13 +54,12 @@ class CreateChoiceTable extends Migration
             ['id' => 8,
             'question_id' => 3,
             'code' => 'B',
-            'description' => 'look where you last had it'],
+            'description' => 'look around where you last had the item'],
             ['id' => 9,
             'question_id' => 3,
             'code' => 'C',
             'description' => 'go on with life'],
             ]);
-
     }
     /**
      * Reverse the migrations.

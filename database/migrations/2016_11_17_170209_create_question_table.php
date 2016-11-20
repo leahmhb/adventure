@@ -11,15 +11,11 @@ class CreateQuestionTable extends Migration
      *
      * @return void
      */
-    public function up()
-    {
-
-
+    public function up(){
         Schema::create('question', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('adventure_id')->unsigned();
             $table->string('description');
-
 
             $table->foreign('adventure_id')->references('id')->on('adventure');
         });

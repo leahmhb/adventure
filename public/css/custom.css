@@ -1,0 +1,43 @@
+body {
+  background-color: rgb(88,88,88);
+  background-image: url(../img/white-diamond-dark.png);
+  font-family: 'Gudea', sans-serif;
+  font-size: 14px;
+  -webkit-animation: colors 1000s infinite;
+  animation: colors 1000s infinite;
+
+  display:flex;
+  flex-wrap: wrap;
+  flex-direction:row;
+  justify-content: space-around;
+  align-items: center;
+}
+
+@keyframes  colors {
+  0% { background-color: rgba(0,0,0, .7); }
+  15% { background-color: rgb(81, 97, 61); } /* green */
+  30% { background-color: rgb(97,77,61); } /* brown */
+  45% { background-color: rgb(61,81,97); } /* blue */
+  60% { background-color: rgb(77,61,97); } /* purple */
+  100% { background-color: rgb(118,96,73); }
+}
+
+label, button {
+  display: block;
+}
+
+select {
+  margin-bottom: 1em;
+}
+
+main {
+  background-image:url('../img/notebook.png');
+  padding: 5em;
+}
+
+main h1, main h2 {
+  margin-top: 0;
+}
+
+
+

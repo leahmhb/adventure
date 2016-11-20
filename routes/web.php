@@ -11,6 +11,5 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/', 'Base@index')->name('index');
+Route::post('/story', 'Base@story')->name('story');

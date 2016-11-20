@@ -11,12 +11,10 @@ class CreateAdventureTable extends Migration
      *
      * @return void
      */
-    public function up()
-    {
+    public function up(){
         Schema::create('adventure', function (Blueprint $table) {
             $table->increments('id');
             $table->string('description');
-
         });
 
         DB::table('adventure')->insert([
