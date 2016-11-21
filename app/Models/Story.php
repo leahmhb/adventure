@@ -14,14 +14,14 @@ class Story extends Model{
     ];
 
     public function choices(){
-        return $this->hasMany('Models\Choice');
-    }
+        return $this->hasOne('Models\Choice');
+    }//one story has one choice
 
     public function questions(){
-        return $this->hasMany('Models\Question');
-    }
+        return $this->hasOne('Models\Question');
+    }//one story has one question
 
     public function adventures(){
-        return $this->hasMany('Models\Adventure');
-    }
+        return $this->hasOne('Models\Adventure');
+    }//one story has one adventure
 }

@@ -13,9 +13,13 @@ class Question extends Model{
 
     public function adventure(){
         return $this->belongsTo('App\Adventure');
-    }
+    }//many questions may belong to one adventure
 
     public function choices(){
         return $this->hasMany('Models\Choice');
-    }
+    }//one question has many choices
+
+    public function story(){
+        return $this->belongsTo('Models\Story');
+    }//story has a question
 }
